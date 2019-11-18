@@ -63,7 +63,8 @@ export const createGoogleParams = params => {
 		origin: params.start,
 		destination: params.end,
 		travelmode: travelTypeMap[params.travelType],
-		zoom: params.zoom
+    zoom: params.zoom,
+    waypoints: params.waypoints
 	};
 
 	if (params.navigate_mode === 'navigate') {
@@ -88,7 +89,8 @@ export const createQueryParameters = ({
 	end = '',
 	query = '',
 	navigate_mode = 'preview', // preview has always being the default mode
-	travelType = 'drive'
+  travelType = 'drive',
+  waypoints = ''
 }) => {
 	validateTravelType(travelType);
 
@@ -98,9 +100,10 @@ export const createQueryParameters = ({
 		query,
 		navigate_mode,
 		travelType,
-		zoom
+    zoom,
+    waypoints
 	}
-	
+
 	if (latitude && longitude) {
 		formatArguments.coords = geoCordStringify(latitude, longitude);
 	}
@@ -136,7 +139,7 @@ export function createMapLink({
 		google: 'https://www.google.com/maps/search/?api=1&',
 		apple: 'http://maps.apple.com/?'
 	};
-	
+
 	// Display if lat and longitude is specified
 	if (params.latitude && params.longitude) {
 		link.google = 'https://www.google.com/maps/@?api=1&map_action=map&';
